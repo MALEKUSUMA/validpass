@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Login Form</h2>
+  <form id="loginForm" onsubmit="return validateForm()">
+    <div>
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" required>
+      <span class="error" id="emailError"></span>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <span class="error" id="passwordError"></span>
+    </div>
+    <div>
+      <input type="submit" value="Login">
+    </div>
+  </form>
+
+  <script>
+    function validateForm() {
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const emailError = document.getElementById("emailError");
+      const passwordError = document.getElementById("passwordError");
+
+      // Email validation with a regular expression
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      if (!emailRegex.test(emailInput.value)) {
+        emailError.textContent = "Invalid email address";
+        emailInput.focus();
+        return false;
+      } else {
+        emailError.textContent = "";
+      }
+
+      // Password validation (minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character)
+      const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$&+,:;=?@#|'<>.^*()%!-]).{8,}$/;
+      if (!passwordRegex.test(passwordInput.value)) {
+        passwordError.textContent = "Invalid password";
+        passwordInput.focus();
+        return false;
+      } else {
+        passwordError.textContent = "";
+      }
+
+      // If both email and password are valid, the form will be submitted
+      return true;
+    }
+  </script>
+</body>
+</html>
